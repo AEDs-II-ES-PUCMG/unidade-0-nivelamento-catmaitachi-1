@@ -13,5 +13,12 @@ public class ProdutoNaoPerecivel extends Produto {
         super(desc, precoCusto);
 
     }
+
+    @Override
+    public String gerarDadosTexto() {
+
+        return "1;" + this.getDescricao() + ";" + this.getPrecoCusto() + ";" + this.getMargemLucro();
+
+    }
     
 }

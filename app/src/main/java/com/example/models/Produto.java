@@ -1,8 +1,5 @@
 package com.example.models;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Produto {
 
     private static final double MARGEM_PADRAO = 0.2;
@@ -29,39 +26,26 @@ public class Produto {
     public String getDescricao() { return descricao; }
     public void setDescricao( String desc ) { descricao = desc; }
 
+    public double getPrecoCusto() { return precoCusto; }
+    public void setPrecoCusto( double precoCusto ) { this.precoCusto = precoCusto; }
+
+    public double getMargemLucro() { return margemLucro; }
+    public void setMargemLucro( double margemLucro ) { this.margemLucro = margemLucro; }
+
     public double valorVenda() { return precoCusto * ( 1 + margemLucro ); }
 
     public boolean equals(Object obj) {
 
-        Produto outro = (Produto)obj;
-        return this.descricao.toLowerCase().equals(outro.getDescricao().toLowerCase());
+        Produto produto = (Produto)obj;
+
+        return this.getDescricao().toLowerCase().equals(produto.getDescricao().toLowerCase());
 
     }
 
-    public Produto criarDoTexto(String linha) {
+    public String gerarDadosTexto() {
 
-        Produto novoProduto = null;
-
-        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        String[] atributos = linha.split(";");
-
-        int tipo = Integer.parseInt(atributos[0]);
-        String descricao = atributos[1];
-        double precoCusto = Double.parseDouble(atributos[2]);
-        double margemLucro = Double.parseDouble(atributos[3]);
-
-        if ( tipo == 1 ) novoProduto = new ProdutoNaoPerecivel(descricao, precoCusto, margemLucro);
-
-        else {
-
-            LocalDate dataValidade = LocalDate.parse(atributos[4], formatoData);
-            novoProduto = new ProdutoPerecivel(descricao, precoCusto, margemLucro, dataValidade);
-
-        }
-        
-        return novoProduto;
-
+        return "0;" + this.getDescricao() + ";" + this.getPrecoCusto() + ";" + this.getMargemLucro();
+    
     }
 
     @Override

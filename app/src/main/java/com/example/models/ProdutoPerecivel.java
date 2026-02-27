@@ -1,6 +1,7 @@
 package com.example.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class ProdutoPerecivel extends Produto {
@@ -39,6 +40,15 @@ public class ProdutoPerecivel extends Produto {
 
         return valorBase * ( 1 - DESCONTO );
 
+    }
+
+    @Override
+    public String gerarDadosTexto() {
+
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return "2;" + this.getDescricao() + ";" + this.getPrecoCusto() + ";" + this.getMargemLucro() + ";" + this.dataDeValidade.format(formatoData);
+    
     }
 
     @Override
