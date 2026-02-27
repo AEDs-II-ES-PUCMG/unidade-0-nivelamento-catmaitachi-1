@@ -2,6 +2,7 @@ package com.example.repositories;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -56,6 +57,10 @@ public class ProdutoRepository {
 
             return produtos;
 
+        } catch ( FileNotFoundException e ) {
+
+            return new Produto[MAX_NOVOS_PRODUTOS];
+        
         } catch ( IOException e ) { 
             
             quantosProdutos = 0;

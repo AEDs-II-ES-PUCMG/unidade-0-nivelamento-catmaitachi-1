@@ -12,11 +12,24 @@ public class Comercio {
 
     static void listarTodosOsProdutos() {
 
-        System.out.println("+---------------------------+--------------+--------+------------------+--------------+%n");
-        System.out.println("| Descrição                 | Preço Custo  | Margem | Data de Validade | Valor Venda  |%n");
-        System.out.println("+---------------------------+--------------+--------+------------------+--------------+%n");
+        for ( int i = 0 ; i < produtosCadastrados.length ; i ++ ) {
+
+            if ( produtosCadastrados[i] != null ) break;
+
+            if ( i == produtosCadastrados.length - 1 && produtosCadastrados[i] == null ) {
+
+                System.out.println("Nenhum produto cadastrado.");
+                return;
+
+            }
+
+        }
+
+        System.out.println("+---------------------------+--------------+--------+------------------+--------------+");
+        System.out.println("| Descrição                 | Preço Custo  | Margem | Data de Validade | Valor Venda  |");
+        System.out.println("+---------------------------+--------------+--------+------------------+--------------+");
                           
-        for ( int i = 0 ; i < produtosCadastrados.length ; i ++ ) produtosCadastrados[i].toString();
+        for ( int i = 0 ; i < produtosCadastrados.length ; i ++ ) if ( produtosCadastrados[i] != null ) produtosCadastrados[i].toString();
 
     }
     
@@ -50,6 +63,7 @@ public class Comercio {
 
     public static void main(String[] args) {
 
+        listarTodosOsProdutos();
 
     }
 
