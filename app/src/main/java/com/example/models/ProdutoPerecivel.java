@@ -56,10 +56,7 @@ public class ProdutoPerecivel extends Produto {
 
         return String.format(
             
-              "+---------------------------+--------------+--------+------------------+--------------+%n"
-            + "| Descrição                 | Preço Custo  | Margem | Data de Validade | Valor Venda  |%n"
-            + "+---------------------------+--------------+--------+------------------+--------------+%n"
-            + "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
+              "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
             + "+---------------------------+--------------+--------+------------------+--------------+"
 
             , getDescricao(), precoCusto, margemLucro * 100, dataDeValidade, valorVenda()

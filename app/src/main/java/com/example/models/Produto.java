@@ -53,13 +53,10 @@ public class Produto {
 
         return String.format(
 
-              "+---------------------------+--------------+--------+--------------+%n"
-            + "| Descrição                 | Preço Custo  | Margem | Valor Venda  |%n"
-            + "+---------------------------+--------------+--------+--------------+%n"
-            + "| %-25s | R$ %9.2f | %5.2f%% | R$ %9.2f |%n"
+              "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
             + "+---------------------------+--------------+--------+--------------+"
 
-            , descricao, precoCusto, margemLucro * 100, valorVenda()
+            , descricao, precoCusto, margemLucro * 100, null, valorVenda()
         
         );
 
