@@ -23,6 +23,8 @@ public class Produto {
 
     }
 
+    public static double getMargemPadrao() { return MARGEM_PADRAO; }
+
     public String getDescricao() { return descricao; }
     public void setDescricao( String desc ) { descricao = desc; }
 
@@ -42,9 +44,18 @@ public class Produto {
 
     }
 
+    public boolean equals(String s) {
+
+        return this.getDescricao().toLowerCase().equals(s.toLowerCase());
+
+    }
+
     public String gerarDadosTexto() {
 
-        return "0;" + this.getDescricao() + ";" + this.getPrecoCusto() + ";" + this.getMargemLucro();
+        String precoFormatado = String.format("%.2f", precoCusto).replace(",", ".");
+        String margemFormatada = String.format("%.2f", margemLucro).replace(",", ".");
+
+        return String.format("1;%s;%s;%s", descricao, precoFormatado, margemFormatada);
     
     }
 
@@ -54,7 +65,7 @@ public class Produto {
         return String.format(
 
               "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
-            + "+---------------------------+--------------+--------+--------------+"
+            + "+---------------------------+--------------+--------+------------------+--------------+"
 
             , descricao, precoCusto, margemLucro * 100, null, valorVenda()
         

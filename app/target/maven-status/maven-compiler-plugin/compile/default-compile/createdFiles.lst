@@ -1,0 +1,6 @@
+com\example\Comercio.class
+com\example\repositories\ProdutoRepository.class
+com\example\models\Produto.class
+com\example\models\ProdutoPerecivel.class
+com\example\services\ProdutoService.class
+com\example\models\ProdutoNaoPerecivel.class

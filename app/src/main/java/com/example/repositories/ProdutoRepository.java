@@ -14,24 +14,51 @@ import com.example.services.ProdutoService;
 
 public class ProdutoRepository {
 
+    static String nomeArquivoDados = "produtos.csv";
     static final int MAX_NOVOS_PRODUTOS = 10;
-    static String nomeArquivoDados = "../produtos.txt";
     static int quantosProdutos;
     
     public static void salvarProduto( Produto[] produtos ) {
 
-        for ( int i = 0; i < produtos.length; i ++ ) {
+        try ( BufferedWriter writer = new BufferedWriter( new FileWriter(nomeArquivoDados, false) ) ) {
 
-            String linha = produtos[i].gerarDadosTexto();
+            for ( int i = 0; i < produtos.length; i ++ ) {
 
-            try ( BufferedWriter writer = new BufferedWriter( new FileWriter(nomeArquivoDados, false) ) ) {
+                if ( produtos[i] != null ) {
 
-                writer.write(linha);
-                writer.newLine();
+                    String linha = produtos[i].gerarDadosTexto();
+                    writer.write(linha);
+                    writer.newLine();
 
-            } catch ( IOException e ) { throw new RuntimeException("Erro ao salvar o produto.", e); }
+                }
+
+            }
+
+        } catch ( IOException e ) { throw new RuntimeException("Erro ao salvar o produto.", e); }
+
+    }
+
+    public static Produto[] verificarRepetido( Produto[] produtosCadastrados ) {
+
+        for ( int i = 0 ; i < produtosCadastrados.length ; i ++ ) {
+
+            if ( produtosCadastrados[i] == null ) continue;
+
+            for ( int j = i + 1 ; j < produtosCadastrados.length ; j ++ ) {
+
+                if ( produtosCadastrados[j] == null ) continue;
+
+                if ( produtosCadastrados[i].equals(produtosCadastrados[j]) ) {
+
+                    produtosCadastrados[i] = null; // Remover o produto repetido mais antigo
+
+                }
+
+            }
 
         }
+
+        return produtosCadastrados;
 
     }
 
@@ -58,6 +85,8 @@ public class ProdutoRepository {
             return produtos;
 
         } catch ( FileNotFoundException e ) {
+
+            quantosProdutos = 0;
 
             return new Produto[MAX_NOVOS_PRODUTOS];
         

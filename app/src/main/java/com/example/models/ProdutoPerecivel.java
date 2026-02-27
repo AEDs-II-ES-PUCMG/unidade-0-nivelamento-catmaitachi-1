@@ -14,7 +14,7 @@ public class ProdutoPerecivel extends Produto {
 
         super(desc, precoCusto, margemLucro);
         this.dataDeValidade = validade;
-
+        
         if ( estaVencido() ) throw new IllegalArgumentException("Produto já está vencido!");
 
     }
@@ -47,19 +47,26 @@ public class ProdutoPerecivel extends Produto {
 
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        return "2;" + this.getDescricao() + ";" + this.getPrecoCusto() + ";" + this.getMargemLucro() + ";" + this.dataDeValidade.format(formatoData);
+        String precoFormatado = String.format("%.2f", precoCusto).replace(",", ".");
+        String margemFormatada = String.format("%.2f", margemLucro).replace(",", ".");
+        String dataFormatada = dataDeValidade.format(formatoData);
+
+        return String.format("2;%s;%s;%s;%s", this.getDescricao(), precoFormatado, margemFormatada, dataFormatada);
     
     }
 
     @Override
     public String toString() {
 
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataFormatada = dataDeValidade.format(formatoData);
+
         return String.format(
             
               "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
             + "+---------------------------+--------------+--------+------------------+--------------+"
 
-            , getDescricao(), precoCusto, margemLucro * 100, dataDeValidade, valorVenda()
+            , getDescricao(), precoCusto, margemLucro * 100, dataFormatada, valorVenda()
         );
 
     }
