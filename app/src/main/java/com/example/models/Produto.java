@@ -6,31 +6,39 @@ public class Produto {
     protected double margemLucro;
     protected double precoCusto;
     private String descricao;
+    private int estoque;
 
-    protected Produto ( String desc, double precoCusto, double margemLucro ) {
+    protected Produto ( String desc, double precoCusto, double margemLucro, int estoque ) {
 
         this.descricao = desc;
         this.precoCusto = precoCusto;
         this.margemLucro = margemLucro;
+        this.estoque = estoque;
 
     }
 
-    protected Produto ( String desc, double precoCusto ) {
+    protected Produto ( String desc, double precoCusto, int estoque ) {
 
         this.descricao = desc;
         this.precoCusto = precoCusto;
         this.margemLucro = MARGEM_PADRAO;
+        this.estoque = estoque;
 
     }
 
     public static double getMargemPadrao() { return MARGEM_PADRAO; }
+
+    public int getEstoque() { return estoque; }
+    public void setEstoque( int estoque ) { this.estoque = estoque; }
+    public void baixaEstoque( int baixa ) { this.estoque -= baixa; }
+    public void altaEstoque ( int alta ) { this.estoque += alta; }
 
     public String getDescricao() { return descricao; }
     public void setDescricao( String desc ) { descricao = desc; }
 
     public double getPrecoCusto() { return precoCusto; }
     public void setPrecoCusto( double precoCusto ) { this.precoCusto = precoCusto; }
-
+  
     public double getMargemLucro() { return margemLucro; }
     public void setMargemLucro( double margemLucro ) { this.margemLucro = margemLucro; }
 
@@ -55,7 +63,7 @@ public class Produto {
         String precoFormatado = String.format("%.2f", precoCusto).replace(",", ".");
         String margemFormatada = String.format("%.2f", margemLucro).replace(",", ".");
 
-        return String.format("1;%s;%s;%s", descricao, precoFormatado, margemFormatada);
+        return String.format("1;%s;%s;%d;%s", descricao, precoFormatado, estoque, margemFormatada);
     
     }
 
@@ -64,10 +72,10 @@ public class Produto {
 
         return String.format(
 
-              "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f |%n"
-            + "+---------------------------+--------------+--------+------------------+--------------+"
+              "| %-25s | R$ %9.2f | %5.2f%% | %-16s | R$ %9.2f | %-7d | %n"
+            + "+---------------------------+--------------+--------+------------------+--------------+---------+"
 
-            , descricao, precoCusto, margemLucro * 100, null, valorVenda()
+            , descricao, precoCusto, margemLucro * 100, null, valorVenda(), estoque
         
         );
 
