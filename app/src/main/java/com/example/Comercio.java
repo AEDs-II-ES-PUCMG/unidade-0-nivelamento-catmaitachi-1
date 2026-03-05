@@ -9,6 +9,8 @@ import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+// Teste de commit
+
 public class Comercio {
 
     static Produto[] produtosCadastrados;
